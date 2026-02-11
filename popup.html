@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainbrio Task Reminder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <h1>Task Reminder</h1>
+        <div style="display: flex; gap: 8px;">
+          <button id="settingsBtn" class="icon-toggle" aria-label="Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </button>
+          <button id="themeToggle" class="icon-toggle" aria-label="Toggle Dark Mode">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Tab Navigation -->
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="all">All</button>
+        <button class="tab-btn" data-tab="today">Today</button>
+        <button class="tab-btn" data-tab="upcoming">Upcoming</button>
+        <button class="tab-btn" data-tab="groups">Groups</button>
+      </nav>
+    </header>
+
+    <div class="input-section">
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="What needs to be done?" autocomplete="off">
+        <button id="addBtn" aria-label="Add Task">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+      </div>
+      <div class="input-options">
+        <div class="option-wrapper">
+          <input type="datetime-local" id="dueDateInput" aria-label="Due Date">
+        </div>
+        <div class="option-wrapper">
+          <select id="groupSelect" aria-label="Select Group">
+            <option value="inbox">Inbox</option>
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="shopping">Shopping</option>
+            <option value="new">+ New Group</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="task-list-container">
+      <ul id="taskList">
+        <!-- Tasks injected here -->
+      </ul>
+
+      <!-- Groups View (Only visible when Groups tab active) -->
+      <div id="groupsView" class="hidden">
+        <ul id="groupList">
+          <!-- Groups injected here -->
+        </ul>
+      </div>
+
+      <div id="emptyState" class="empty-state hidden">
+        <p>No tasks found.</p>
+      </div>
+    </div>
+
+    <!-- Edit/Schedule Modal -->
+    <div id="editModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Task</h3>
+          <button id="closeModalBtn" class="icon-btn close-modal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editTaskId">
+          <div class="input-group">
+            <label>Task Name</label>
+            <input type="text" id="editTaskInput" placeholder="Task name">
+          </div>
+          <div class="input-group">
+            <label>Due Date & Time</label>
+            <input type="datetime-local" id="editDateInput">
+          </div>
+          <div class="input-group">
+            <label>Remind me</label>
+            <select id="editAlarmOffset">
+              <option value="0">At time of event</option>
+              <option value="5">5 minutes before</option>
+              <option value="10">10 minutes before</option>
+              <option value="15">15 minutes before</option>
+              <option value="30">30 minutes before</option>
+              <option value="60">1 hour before</option>
+              <option value="1440">1 day before</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Group</label>
+            <select id="editGroupSelect">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="saveEditBtn" class="primary-btn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal (New for Custom Sound) -->
+    <div id="settingsModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Settings</h3>
+          <button id="closeSettingsBtn" class="icon-btn close-modal">
+             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <label>Custom Alarm Sound</label>
+            <input type="file" id="soundInput" accept="audio/*">
+            <p style="font-size:10px; color:var(--text-muted); margin-top:4px;">Upload MP3/WAV (Max 2MB)</p>
+          </div>
+          <div class="input-group">
+            <button id="previewSoundBtn" class="secondary-btn" style="margin-top:8px;">
+               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Preview Sound
+            </button>
+            <button id="resetSoundBtn" class="secondary-btn" style="margin-top:4px; color:var(--danger-color);">Reset to Default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Settings Toggle in Header (Need to add this icon in header) -->
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
